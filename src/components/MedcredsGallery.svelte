@@ -1,5 +1,5 @@
 <script>
-	import { originals, small, large, selected, selectedLarge, lastLarge, nextLarge, selectedSmall } from '../stores/gallery.js'
+	import { small, medium, large, xlarge, selected, selectedLarge, lastLarge, nextLarge, selectedSmall } from '../stores/gallery.js'
 	import { slide, fade } from 'svelte/transition'
   import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
 	import { Icon, Button } from 'svelte-materialify'
@@ -41,6 +41,45 @@
 {#if $selected}
 
     <div class="gallery-container">
+
+      {#key $selectedLarge.name}
+
+        <Button icon
+          style="position: absolute; top: 300px; left: 5px"
+          class="navigate left"
+          on:click="{ () => $selected = $lastLarge }"
+          aria-label="Go forward one image"
+          >
+            <Icon style="color: #fff" path={mdiChevronLeft} size="50px" />
+        </Button>
+
+        <div class="last-container">
+          <div class="large-images" in:fade on:click="{() => { $selected = $lastLarge } }">
+            <img lazy={false} src={$lastLarge.path} alt={$lastLarge.name} />
+          </div>
+        </div>
+
+        <div class="large-images" in:fade on:click="{() => { $selected = null} }">
+          <img  lazy={false} src={$selectedLarge.path} alt={$selectedLarge.name} />
+        </div>
+
+        <div class="next-container">
+          <div class="large-images" in:fade on:click="{() => { $selected = $nextLarge } }">
+            <img  lazy={false} src={$nextLarge.path} alt={$nextLarge.name} />
+          </div>
+        </div>
+ 
+        <Button icon
+          style="position: absolute; top: 300px; right: 5px"
+          class="navigate right"
+          on:click="{ () => $selected = $nextLarge }"
+          aria-label="Go forward one image"
+          >
+            <Icon style="color: #fff" path={mdiChevronRight} size="50px" />
+        </Button>
+
+      {/key}
+
       <div class="bottom-images" in:fade out:fade>
         {#each $selectedSmall as img (img.name)}
           <img
@@ -50,82 +89,61 @@
         {/each}
       </div>
 
-      {#key $selectedLarge.name}
-
-        <Button icon
-          style="position: absolute; left: -5px; top: 450px; z-index: 999; cursor: pointer;"
-          on:click="{ () => $selected = $lastLarge }"
-          aria-label="Go forward one image"
-          >
-            <Icon style="color: #fff" path={mdiChevronLeft} size="50px" />
-        </Button>
-
-        <div class="last-container">
-          <div class="large-images" in:fade on:click="{() => { $selected = $lastLarge } }">
-            <Image src={$lastLarge.path} alt={$lastLarge.name} />
-          </div>
-        </div>
-
-        <div class="large-images" in:fade on:click="{() => { $selected = null} }">
-          <Image src={$selectedLarge.path} alt={$selectedLarge.name} />
-        </div>
-
-        <div class="next-container">
-          <div class="large-images" in:fade on:click="{() => { $selected = $nextLarge } }">
-            <Image src={$nextLarge.path} alt={$nextLarge.name} />
-          </div>
-        </div>
-
-        <Button icon
-          style="position: absolute; right: -5px; top: 450px; z-index: 999; background-color: rgba(0,0,0,0.6) cursor: pointer;"
-          on:click="{ () => $selected = $nextLarge }"
-          aria-label="Go forward one image"
-          >
-            <Icon style="color: #fff" path={mdiChevronRight} size="50px" />
-        </Button>
-
-      {/key}
-
   </div>
 {/if}
 
 
-<style>
+<style global>
   .next-container {
     position: fixed;
-    top: 115px;
-    right: -10%;
+    top: 100px;
+    right: -90%;
     z-index: 5;
     width: 100%;
   }
 
   .last-container {
     position: fixed;
-    top: 115px;
-    left: -10%;
+    top: 100px;
+    left: -90%;
     z-index: 5;
     width: 100%;
   }
   .gallery-container {
     position: fixed;
-    top: 0px;
+    top: 100px;
     left: 0;
     right: 0;
     z-index: 5;
     width: 100%;
   }
+  .navigate {
+    position: absolute;
+    top: 300px;
+    z-index: 999;
+    cursor: pointer;
+  }
+  .navigate.left {
+    left: -5px;
+  }
+  .navigate.right {
+    right: -5px;
+  }
   .bottom-images,.small-images {
     display: flex;
+    bottom: 0;
+    left: 0;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-wrap: nowrap;
     z-index: 5;
     /* background-color: #fff; */
     z-index: 95;
     /* max-height: 120px; */
   }
-  .bottom-images img {
+  .bottom-images {
+    position: fixed;
     /* margin-left: -80px; */
   }
   .selected {
@@ -146,6 +164,7 @@
   .large-images {
     /* padding-top: 10px; */
     /* border-top: 1px solid #fff; */
+    left: 10%;
     width: 100%;
     display: flex;
     justify-content: center;
