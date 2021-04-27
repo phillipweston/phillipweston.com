@@ -29,7 +29,6 @@
   }
 </script>
 
-
 <svelte:window on:keydown={handleKeydown}/>
 
 <div class="small-images" class:hidden>
@@ -39,34 +38,53 @@
 </div>
 
 {#if $selected}
+  <div class="last-container">
+    <div class="large-images" in:fade on:click="{() => $selected = $lastLarge }">
+      <img src={$lastLarge.path} alt={$lastLarge.name} />
+    </div>
+  </div>
+      <Icon path={mdiChevronLeft} size="50px"
+        on:click="{ () => $selected = $lastLarge }"
+        style="position: absolute; left: 10px; top: 350px; z-index: 2; color: rgba(1,1,1,0.3)"
+        aria-label="Go back one image"
+      />
   <div class="gallery-container">
     <div class="bottom-images" in:fade out:fade>
+    <!-- {#key $lastLarge.name} -->
+
       {#each $selectedSmall as img (img.name)}
         <img
           src={img.path} on:click="{() => $selected = img}"
           alt={img.name} class:selected = "{ img === $selected }"
         />
       {/each}
+    <!-- {/key} -->
+
     </div>
-    <Button
+    {#key $selectedLarge.name}
+
+    <!-- <Icon
       on:click="{ () => $selected = $lastLarge }"
       aria-label="Go back one image"
-      fab style="position: absolute; left: 100px; top: 500px; z-index: 999"
-    >
-      <Icon path={mdiChevronLeft} size="50px"  />
-    </Button>
-      {#key $selectedLarge.name}
+      class="btn-flat"
+      fab style="position: absolute; left: 10px; top: 350px; z-index: 999; color: rgba(1,1,1,0.3)"
+       path={mdiChevronLeft} size="50px"  /> -->
+
         <div class="large-images" in:fade on:click="{() => { $selected = null} }">
-          <img src={$selectedLarge?.path} alt={$selectedLarge?.name} />
+          <img src={$selectedLarge.path} alt={$selectedLarge.name} />
         </div>
+        <Icon path={mdiChevronRight} size="50px"
+          on:click="{ () => $selected = $nextLarge }"
+          style="position: absolute; right: 10px; top: 350px; z-index: 0; color: rgba(1,1,1,0.3)"
+          aria-label="Go forward one image"
+        />
       {/key}
-      <Button 
-        on:click="{ () => $selected = $nextLarge }"
-        fab style="position: absolute; right: 100px; top: 500px; z-index: 999"
-        aria-label="Go forward one image"
-      >
-        <Icon path={mdiChevronRight} size="50px"  />
-      </Button>
+
+  </div>
+  <div class="next-container">
+    <div class="large-images" in:fade on:click="{() => { $selected = $nextLarge } }">
+      <img src={$nextLarge.path} alt={$nextLarge.name} />
+    </div>
   </div>
 
   <!-- <Icon class="mdi chevron-right" /> -->
@@ -74,9 +92,25 @@
 
 
 <style>
+
+  .next-container {
+    position: absolute;
+    top: 115px;
+    right: -85%;
+    z-index: 5;
+    width: 100%;
+  }
+
+  .last-container {
+    position: absolute;
+    top: 115px;
+    left: -85%;
+    z-index: 5;
+    width: 100%;
+  }
   .gallery-container {
     position: absolute;
-    top: 0;
+    top: 0px;
     left: 0;
     right: 0;
     z-index: 5;
@@ -90,11 +124,15 @@
     flex-wrap: nowrap;
     z-index: 5;
     /* background-color: #fff; */
-    z-index: 999;
+    z-index: 95;
     /* max-height: 120px; */
+  }
+  .bottom-images img {
+    margin-left: -80px;
   }
   .selected {
     border: 5px solid #fff;
+    z-index: 100;
   }
   .bottom-images img,.small-images img {
     display: flex;
@@ -114,14 +152,15 @@
     display: flex;
     justify-content: center;
     align-items: start;
-  
   }
   
   .large-images img {
     display: inline-block;
     z-index: 10;
     cursor: pointer;
+    max-height: 1000px;
   }
+
   
   .hidden {
     visibility: hidden;

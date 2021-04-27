@@ -1,9 +1,9 @@
 import { readable, writable, derived } from 'svelte/store'
 
 const images = [
-  'medcreds-consent', 'medcreds-homepage', 'medcreds-issue-test', 'medcreds-mobile-menu', 'medcreds-mobile-selfcheck', 'medcreds-mobile-view',
+  'medcreds-consent', 'medcreds-homepage', 'medcreds-issue-test', 'medcreds-mobile-menu', 'medcreds-mobile-selfcheck',
   'medcreds-role-editing', 'medcreds-self-verifier', 'medcreds-selfcheck', 'medcreds-sms-selfcheck', 'medcreds-temp', 'medcreds-temp-portal',
-  'medcreds-verifier', 'medcreds-verify-daterange', 'medcreds-verify-sms', 'medcreds-verify-w2w', 'medcreds-verify-wallet'
+  'medcreds-verifier', 'medcreds-verify-daterange', 'medcreds-verify-sms', 'medcreds-verify-w2w', 'medcreds-verify-wallet', 'medcreds-mobile-view'
 ]
 
 export const small = readable(images.map(name => ({ name, path: `g/medcreds/${name}-200.webp` }) ))
