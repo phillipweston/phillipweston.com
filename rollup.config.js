@@ -104,7 +104,7 @@ export default {
 						// the `processFoldersExtensions` array will be processed. For example, an
 						// array ['folder-a', 'folder-b'] will process all images in
 						// `./static/folder-a/` and `./static/folder-b`.
-						processFolders: ['disney', 'medcreds', 'asyncdesign'],
+						processFolders: ['disney', 'medcreds'],
 					
 						// When true, the folders in the options above will have all subfolders
 						// processed recursively as well.
