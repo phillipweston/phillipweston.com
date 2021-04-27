@@ -38,54 +38,42 @@
 </div>
 
 {#if $selected}
-  <div class="last-container">
-    <div class="large-images" in:fade on:click="{() => $selected = $lastLarge }">
-      <img src={$lastLarge.path} alt={$lastLarge.name} />
-    </div>
-  </div>
-      <Icon path={mdiChevronLeft} size="50px"
-        on:click="{ () => $selected = $lastLarge }"
-        style="position: absolute; left: 10px; top: 350px; z-index: 2; color: rgba(1,1,1,0.3)"
-        aria-label="Go back one image"
-      />
+
+
+
+
   <div class="gallery-container">
     <div class="bottom-images" in:fade out:fade>
-    <!-- {#key $lastLarge.name} -->
-
       {#each $selectedSmall as img (img.name)}
         <img
           src={img.path} on:click="{() => $selected = img}"
           alt={img.name} class:selected = "{ img === $selected }"
         />
       {/each}
-    <!-- {/key} -->
-
-    </div>
-    {#key $selectedLarge.name}
-
-    <!-- <Icon
-      on:click="{ () => $selected = $lastLarge }"
-      aria-label="Go back one image"
-      class="btn-flat"
-      fab style="position: absolute; left: 10px; top: 350px; z-index: 999; color: rgba(1,1,1,0.3)"
-       path={mdiChevronLeft} size="50px"  /> -->
-
+      </div>
+      {#key $selectedLarge.name}
+      <div class="last-container">
+        <div class="large-images" in:fade on:click="{() => { $selected = $lastLarge } }">
+          <img src={$lastLarge.path} alt={$lastLarge.name} />
+        </div>
+      </div>
         <div class="large-images" in:fade on:click="{() => { $selected = null} }">
           <img src={$selectedLarge.path} alt={$selectedLarge.name} />
         </div>
-        <Icon path={mdiChevronRight} size="50px"
+        <!-- <Icon path={mdiChevronRight} size="50px"
           on:click="{ () => $selected = $nextLarge }"
           style="position: absolute; right: 10px; top: 350px; z-index: 0; color: rgba(1,1,1,0.3)"
           aria-label="Go forward one image"
-        />
-      {/key}
+        /> -->
 
+        <div class="next-container">
+          <div class="large-images" in:fade on:click="{() => { $selected = $nextLarge } }">
+            <img src={$nextLarge.path} alt={$nextLarge.name} />
+          </div>
+        </div>
+      {/key}
   </div>
-  <div class="next-container">
-    <div class="large-images" in:fade on:click="{() => { $selected = $nextLarge } }">
-      <img src={$nextLarge.path} alt={$nextLarge.name} />
-    </div>
-  </div>
+
 
   <!-- <Icon class="mdi chevron-right" /> -->
 {/if}
