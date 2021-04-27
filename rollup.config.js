@@ -44,7 +44,7 @@ export default {
 						// processed by the <img> tag (assuming `optimizeAll` above is true). Empty
 						// the array to allow all extensions to be processed. However, only jpegs and
 						// pngs are explicitly supported.
-						imgTagExtensions: ["jpg", "jpeg", "png"],
+						imgTagExtensions: ["jpg", "jpeg", "png", "gif"],
 					
 						// Same as the above, except that this array applies to the Image Component.
 						// If the images passed to your image component are unknown, it might be a
@@ -59,10 +59,10 @@ export default {
 					
 						tagName: "Image", // default component name
 					
-						sizes: [200, 400, 800, 1200], // array of sizes for srcset in pixels
+						sizes: [200, 400, 800, 1200, 1600], // array of sizes for srcset in pixels
 					
 						// array of screen size breakpoints at which sizes above will be applied
-						breakpoints: [375, 768, 1024],
+						breakpoints: [375, 768, 1024, 1400],
 					
 						outputDir: "g/",
 					
@@ -112,7 +112,7 @@ export default {
 					
 						// Only files with these extensions will ever be processed when invoking
 						// `processFolders` above.
-						processFoldersExtensions: ["jpeg", "jpg", "png"],
+						processFoldersExtensions: ["jpeg", "jpg", "png", "gif"],
 					
 						// Add image sizes to this array to create different asset sizes for any image
 						// that is processed using `processFolders`

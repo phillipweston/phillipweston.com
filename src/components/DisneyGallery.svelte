@@ -1,5 +1,5 @@
 <script>
-	import { small, large, selected, selectedLarge, lastLarge, nextLarge, selectedSmall } from '../stores/gallery.js'
+	import { small, large, selected, selectedLarge, lastLarge, nextLarge, selectedSmall } from '../stores/disney.js'
 	import { slide, fade } from 'svelte/transition'
   import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
 	import { Icon, Button } from 'svelte-materialify'
@@ -38,10 +38,6 @@
 </div>
 
 {#if $selected}
-
-
-
-
   <div class="gallery-container">
     <div class="bottom-images" in:fade out:fade>
       {#each $selectedSmall as img (img.name)}
@@ -73,36 +69,32 @@
         </div>
       {/key}
   </div>
-
-
-  <!-- <Icon class="mdi chevron-right" /> -->
 {/if}
 
 
 <style>
-
   .next-container {
-    position: absolute;
+    position: fixed;
     top: 115px;
     right: -85%;
     z-index: 5;
-    width: 100%;
+    width: 90%;
   }
 
   .last-container {
-    position: absolute;
+    position: fixed;
     top: 115px;
     left: -85%;
     z-index: 5;
-    width: 100%;
+    width: 90%;
   }
   .gallery-container {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0;
     right: 0;
     z-index: 5;
-    width: 100%;
+    width: 90%;
   }
   .bottom-images,.small-images {
     display: flex;
@@ -110,14 +102,11 @@
     -webkit-overflow-scrolling: touch;
     overflow-y: scroll;
     flex-wrap: nowrap;
-    z-index: 5;
-    /* background-color: #fff; */
     z-index: 95;
-    /* max-height: 120px; */
   }
-  .bottom-images img {
+  /* .bottom-images img {
     margin-left: -80px;
-  }
+  } */
   .selected {
     border: 5px solid #fff;
     z-index: 100;
@@ -134,8 +123,6 @@
 		position: relative;
   }
   .large-images {
-    /* padding-top: 10px; */
-    /* border-top: 1px solid #fff; */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -147,6 +134,7 @@
     z-index: 10;
     cursor: pointer;
     max-height: 1000px;
+    max-width: 100%;
   }
 
   
