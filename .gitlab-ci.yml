@@ -1,0 +1,26 @@
+stages:
+  - build
+  # - deploy
+
+build:
+  stage: build
+  image: docker:18-git
+  services:
+    - docker:18-dind
+  script:
+    - echo "$GCLOUD_SERVICE_KEY" |base64 -d > key.json
+    - docker login -u _json_key -p "$(cat key.json)" https://gcr.io
+    - docker build -t phillipweston.com .
+    - docker tag phillipweston.com:latest gcr.io/$GCLOUD_PROJECT_ID/phillipweston.com
+    - docker push gcr.io/$GCLOUD_PROJECT_ID/phillipweston.com
+
+# deploy:
+#   stage: deploy
+#   image: google/cloud-sdk:latest
+#   script:
+#     - echo "$GCLOUD_SERVICE_KEY" |base64 -d > key.json
+#     - gcloud auth activate-service-account --key-file=key.json
+#     - gcloud config set project "$GCLOUD_PROJECT_ID"
+#     - gcloud beta run deploy quote-calc --platform managed --image gcr.io/$GCLOUD_PROJECT_ID/quote-calc --region us-central1
+#   only:
+#     - master
