@@ -47,6 +47,9 @@
 				<CardText style="padding-top: 10px">
 				UX-driven software engineer with a key focus on ensuring a smooth experience with maximum user comprehension. Frontend experience with React/Redux, Vue.js, and other frameworks. Experience building REST APIs in Node.js, CI/CD, Kubernetes, and a general practice of DevOps. Nearly 20 of experience spanning many facets of the development lifecycle. EQ-driven advocate for peer, product, and process improvements.
 			</CardText>
+			<CardText>
+				source code: <a href="https://storage.googleapis.com/phillip/phillipweston.com.tgz">phillipweston.com.tgz</a>
+			</CardText>
 		</Card>
 
 		{#each $positions as { company, title, dates, accomplishments } (company)}
